@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, FormControl } from "react-bootstrap-typescript";
-import Layout from "../layouts/panel/Panel";
-import TopBox from "../components/topbox/TopBox";
-import PageBox from "../components/pagebox/PageBox";
+import Layout from "../../layouts/panel/Panel";
+import TopBox from "../../components/topbox/TopBox";
+import PageBox from "../../components/pagebox/PageBox";
 
 import "./Dashboard.less";
 

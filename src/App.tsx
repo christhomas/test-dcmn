@@ -6,8 +6,8 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.less";
 
-import Dashboard from "./components/Dashboard";
-import Error404 from "./components/Error404";
+import Dashboard from "./components/dashboard/Dashboard";
+import Error404 from "./components/error/Error404";
 
 export default class App extends React.Component<AppProps, AppState> {
     public render():React.ReactElement<any> {

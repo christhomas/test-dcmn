@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Row, Col} from "react-bootstrap-typescript";
-import Layout from "../layouts/fullscreen/Fullscreen";
+import Layout from "../../layouts/fullscreen/Fullscreen";
 
 export default class Error404 extends React.Component<any, any> {
     public render () {
