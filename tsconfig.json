@@ -17,9 +17,9 @@
   },
   "files": [
     "./typings/globals/react-dom/index.d.ts",
-    "./typings/globals/react-fa/index.d.ts",
     "./typings/globals/react/index.d.ts",
     "./typings/index.d.ts",
-    "./typings/modules/react-router/index.d.ts"
+    "./typings/modules/react-router/index.d.ts",
+    "./typings-custom/react-fa/index.d.ts",
   ]
 }
