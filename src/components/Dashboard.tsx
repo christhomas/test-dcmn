@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as _ from "lodash";
 import { Col, FormControl } from "react-bootstrap-typescript";
 import Layout from "../layouts/panel/Panel";
 import TopBox from "../components/topbox/TopBox";
@@ -6,7 +7,13 @@ import PageBox from "../components/pagebox/PageBox";
 
 import "./Dashboard.less";
 
-export default class Dashboard extends React.Component<DashboardProps, DashboardState> {
+export default class Dashboard extends React.Component<any, DashboardState> {
+    public constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
     public render () {
         return (
             <Layout className="layout-dashboard">
@@ -27,7 +34,9 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
                     <FormControl type="text"
                                  name="add-widget"
                                  placeholder="Type text for new widget"
-                                 onChange={this.setWidgetText.bind(this)} />
+                                 onChange={this.setWidgetText.bind(this)}
+                                 onKeyPress={this.handleEnter.bind(this)}
+                                 value={this.state.text} />
                     <button className="btn btn-primary"
                             onClick={this.createWidget.bind(this)}>Add Widget</button>
                 </div>
@@ -47,12 +56,14 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
 
         input.forEach(item => {
             output.push(
-                <Col xs={6} sm={3}>
-                    <TopBox colour={item.colour}>
-                        <span>{item.amount}</span>
-                        <span>{item.text}</span>
-                    </TopBox>
-                </Col>
+                <div key={"topbox-"+(output.length+1)}>
+                    <Col xs={6} sm={3}>
+                        <TopBox colour={item.colour}>
+                            <span>{item.amount}</span>
+                            <span>{item.text}</span>
+                        </TopBox>
+                    </Col>
+                </div>
             );
         });
 
@@ -60,49 +71,72 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
     }
 
     private renderWidgets(): React.ReactElement<any>[] {
-        let input = [
-            {title:"Custom Widget // Created at 12.19",content:"The content of this widget"},
-            {title:"Custom Widget // Created at 13.15",content:"Another widget with more content"},
-        ];
-
         let output: React.ReactElement<any>[] = [];
 
-        input.forEach(item => {
-            output.push(
-                <Col xs={12} sm={6}>
-                    <PageBox title={item.title}>
-                        {item.content}
-                    </PageBox>
-                </Col>
-            )
-        });
+        if(this.state.widgets){
+            this.state.widgets.forEach(item => {
+                output.push(
+                    <div key={"pagebox-"+(output.length+1)}>
+                        <Col xs={12} sm={6}>
+                            <PageBox title={item.title}
+                                     onDelete={this.handleDelete.bind(this)}
+                                     index={output.length}>
+                                {item.content}
+                            </PageBox>
+                        </Col>
+                    </div>
+                )
+            });
+        }
 
         return output;
     }
 
-
-    private setWidgetText(event:any) {
-        this.setState({
-            widgetText: event.target.value
-        })
+    private handleEnter(event:any):void {
+        if (event.charCode == 13) {
+            this.createWidget();
+        }
     }
 
-    private createWidget(event:any) {
-        if(this.state.widgetText){
-            this.props.createCallback(this.state.widgetText);
-        }
+    private handleDelete(index:number):void {
+        let widgets: WidgetData[] = _.cloneDeep(this.state.widgets);
 
+        _.pullAt(widgets,index);
+
+        this.setState({widgets});
+    }
+
+    private setWidgetText(event:any):void {
         this.setState({
-            widgetText: null
+            text: event.target.value
         });
+    }
+
+    private createWidget() {
+        if(this.state.text.length){
+            let widgets: WidgetData[] = _.cloneDeep(this.state.widgets || []);
+
+            let item: WidgetData = {
+                title: "Custom Widget: "+(new Date().toLocaleTimeString()),
+                content: this.state.text
+            };
+
+            widgets.push(item);
+
+            this.setState({
+                text: "",
+                widgets
+            });
+        }
     }
 }
 
-
-interface DashboardProps {
-    createCallback?: Function
+interface WidgetData {
+    title: string;
+    content: string;
 }
 
 interface DashboardState {
-    widgetText?: string
+    text?: string;
+    widgets?: WidgetData[];
 }
