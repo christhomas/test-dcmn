@@ -10,7 +10,7 @@ import "./Panel.less";
 export default class Panel extends React.Component<IPanelProps, any> {
     public render () {
         return (
-            <Grid fluid className="layout-panel">
+            <Grid fluid className={this.getClassName()}>
                 <Menu />
 
                 <main className="content-area">
@@ -23,7 +23,7 @@ export default class Panel extends React.Component<IPanelProps, any> {
                         </div>
                     </noscript>
 
-                    <Row>
+                    <Row className="page-area">
                         {this.props.children}
                     </Row>
 

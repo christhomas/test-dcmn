@@ -1,17 +1,38 @@
 import * as React from "react";
-import { Col } from "react-bootstrap-typescript";
+import { Col, FormControl } from "react-bootstrap-typescript";
 import Layout from "../layouts/panel/Panel";
 import TopBox from "../components/topbox/TopBox";
 import PageBox from "../components/pagebox/PageBox";
 
-export default class Dashboard extends React.Component<any, any> {
+import "./Dashboard.less";
+
+export default class Dashboard extends React.Component<DashboardProps, DashboardState> {
     public render () {
         return (
-            <Layout>
+            <Layout className="layout-dashboard">
+                {this.renderHeader()}
                 {this.renderTopbox()}
                 {this.renderWidgets()}
             </Layout>
         )
+    }
+
+    private renderHeader(): React.ReactElement<any> {
+        return (
+            <div className="col-xs-12 clearfix">
+                <h1 className="col-xs-12 col-sm-6">Overview</h1>
+
+                <div className="add-widget col-xs-12 col-sm-6">
+                    <label id="add-widget">Text:</label>
+                    <FormControl type="text"
+                                 name="add-widget"
+                                 placeholder="Type text for new widget"
+                                 onChange={this.setWidgetText.bind(this)} />
+                    <button className="btn btn-primary"
+                            onClick={this.createWidget.bind(this)}>Add Widget</button>
+                </div>
+            </div>
+        );
     }
 
     private renderTopbox(): React.ReactElement<any>[] {
@@ -58,4 +79,30 @@ export default class Dashboard extends React.Component<any, any> {
 
         return output;
     }
+
+
+    private setWidgetText(event:any) {
+        this.setState({
+            widgetText: event.target.value
+        })
+    }
+
+    private createWidget(event:any) {
+        if(this.state.widgetText){
+            this.props.createCallback(this.state.widgetText);
+        }
+
+        this.setState({
+            widgetText: null
+        });
+    }
+}
+
+
+interface DashboardProps {
+    createCallback?: Function
+}
+
+interface DashboardState {
+    widgetText?: string
 }
