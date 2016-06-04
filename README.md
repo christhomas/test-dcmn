@@ -1,4 +1,4 @@
-# test-ohlala
+# test-dcmn
 The React coding test for DCMN
 
 # Installation
