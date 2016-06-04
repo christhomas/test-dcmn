@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "filesGlob": [
+    "./typings/**/*.*.ts",
+    "./node_modules/**/dist/*.d.ts",
+    "./src/**/*.{ts,tsx}",
+    "./test/**/*.ts"
+  ],
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es5",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "files": [
+    "./typings/globals/react-dom/index.d.ts",
+    "./typings/globals/react-fa/index.d.ts",
+    "./typings/globals/react/index.d.ts",
+    "./typings/index.d.ts",
+    "./typings/modules/react-router/index.d.ts"
+  ]
+}

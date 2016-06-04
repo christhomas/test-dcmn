@@ -1,0 +1,69 @@
+
+header {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-weight: bold;
+    vertical-align: middle;
+    margin: 0;
+  }
+
+  .clearfix {
+    margin: 2rem 0;
+    padding: 0;
+  }
+
+  .brand {
+    text-align: left;
+  }
+
+  .login {
+    text-align: right;
+  }
+
+  h1, .add-widget {
+    padding: 0 !important;
+  }
+
+  .add-widget {
+    text-align: right;
+
+    label {
+      font-weight: normal;
+    }
+
+    input {
+      width: 20rem;
+      border-radius: 18px;
+    }
+
+    & > * {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  header {
+    h1, .brand, .login, .add-widget {
+      text-align: center;
+    }
+
+    .clearfix {
+      margin: 1rem 0;
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .login {
+      margin-top: 1rem;
+    }
+
+    .add-widget label {
+      display: none;
+    }
+  }
+}
